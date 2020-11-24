@@ -11,8 +11,8 @@ Tasklist exercise backend for TrueNorth.
 
 ## General info
 This is the API for the tasklist exercise for TrueNorth.
-Normal mode: uses hipsum API to generate the tasks
-Enhanced mode (Database mode): uses mongo db cloud atlas database (https://www.mongodb.com/cloud/atlas)
+* Normal mode: uses hipsum API to generate the tasks
+* Enhanced mode (Database mode): uses mongo db cloud atlas database (https://www.mongodb.com/cloud/atlas)
 
 ## Technologies
 * Node v13.9.0 - Express
