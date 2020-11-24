@@ -1,0 +1,25 @@
+{
+  "name": "tasklist-exercise-backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "startUsingDatabase": "cross-env TASKLIST_USE_DATABASE=1 node ./bin/www"
+  },
+  "dependencies": {
+    "axios": "^0.21.0",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "~4.16.1",
+    "express-promise-router": "^3.0.3",
+    "http-errors": "~1.7.3",
+    "http-status-codes": "^1.4.0",
+    "mongoose": "^5.9.16",
+    "mongoose-create-unique": "^0.4.4",
+    "mongoose-unique-validator": "^2.0.3",
+    "morgan": "~1.9.1"
+  }
+}
