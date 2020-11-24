@@ -22,7 +22,7 @@ Enhanced mode (Database mode): uses mongo db cloud atlas database (https://www.m
 They must be installed to run the API.
 
 ## Setup
-Clone the project!
+Clone the project! - main branch
 * git clone https://github.com/darioq/tasklist-exercise-backend.git
 
 Go to the project directory
