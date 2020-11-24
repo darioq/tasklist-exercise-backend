@@ -22,6 +22,12 @@ Enhanced mode (Database mode): uses mongo db cloud atlas database (https://www.m
 They must be installed to run the API.
 
 ## Setup
+Clone the project!
+* git clone https://github.com/darioq/tasklist-exercise-backend.git
+
+Go to the project directory
+* cd tasklist-exercise-backend (default)
+
 The APP needs the following environment variables to be initialized, to work properly
 
 * TASKLIST_BACKEND_PORT=3000 (Port to run the server)
@@ -31,8 +37,7 @@ The APP needs the following environment variables to be initialized, to work pro
 
 It is possible to create a .env file (in the root directory) with the required environment variables or set the variables directly in the OS.
 
-Install
-To run this project, install it locally using npm
+Install - To run this project, install it locally using npm
 
 * cross-env must be installed globally: npm install -g cross-env
 * npm install
@@ -177,4 +182,4 @@ Enhanced mode
 Project is: _finished_
 
 ## Contact
-Created by [@darioq](dario.quiroga11@gmail.com) - feel free to contact me!
+Created by Dario Quiroga - (dario.quiroga11@gmail.com) - feel free to contact me!
