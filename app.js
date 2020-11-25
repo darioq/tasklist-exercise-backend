@@ -51,7 +51,7 @@ app.use((req, res, next) => {
 // 505 - Error handler
 app.use((err, req, res, next) => {
   console.error(err)
-  res.status(500).json(err) // Respond generic error
+  res.status(500).json({error: err.message}) // Respond generic error
 })
 
 module.exports = app

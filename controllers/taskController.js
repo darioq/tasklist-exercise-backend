@@ -100,7 +100,7 @@ class TaskController {
     const params = req.body
     const taskTitle = params.title
 
-    const result = await this.taskService.create(taskTitle)
+    const result = await this.taskService.create({ title: taskTitle })
 
     return { result }
   }
