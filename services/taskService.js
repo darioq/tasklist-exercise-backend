@@ -22,9 +22,7 @@ class TaskService {
    * @returns {Promise<data>} - The created task
    */
   async create (data) {
-    const entity = await this.entityClass.create(data)
-
-    return entity
+    return this.entityClass.create(data)
   }
 
   /**
@@ -51,12 +49,10 @@ class TaskService {
    * @returns {Promise<*>}
    */
   async update (_id, updateData) {
-    const result = await this.entityClass.updateOne(
+    return this.entityClass.updateOne(
         { _id },
         { $set: updateData }
     )
-
-    return result
   }
 
   /**
@@ -123,19 +119,6 @@ class TaskService {
     }
 
     throw new Error(TASK_DOES_NOT_EXIST_ERROR(taskId))
-  }
-
-  /**
-   * Crate a new task
-   *
-   *
-   * @param {string} title - the title of the task to be created
-   * @return {boolean} - true
-   */
-  async create (title) {
-    const task = await this.entityClass.create({ title })
-
-    return task
   }
 }
 

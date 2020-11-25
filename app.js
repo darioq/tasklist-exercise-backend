@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const { init } = require('./services/initializerService')
 const indexRouter = require('./routes/indexRoute')
 const enhancedRoute = require('./routes/enhancedRoute')
 
@@ -39,6 +38,19 @@ if (useDatabase) {
         })
 }
 
+// Initialize routes
 app.use('/', indexRouterToUse);
+
+// 404 - Request that doesn't exist
+app.use((req, res, next) => {
+    console.error('404 - Not Found')
+    res.status(404).json({ error: 'Not Found' })
+})
+
+// 505 - Error handler
+app.use((err, req, res, next) => {
+    console.error(err)
+    res.status(500).json(err) // Respond generic error
+})
 
 module.exports = app;

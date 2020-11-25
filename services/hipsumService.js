@@ -14,9 +14,7 @@ const HIPSUM_API_URL = (sentences) => `https://hipsum.co/api/?type=${HIPSUM_API_
  */
 async function getSentences(sentences) {
     const response = await axios.get(HIPSUM_API_URL(sentences))
-    const result = response.data[0].split(SENTENCE_SEPARATOR, sentences)
-
-    return result
+    return response.data[0].split(SENTENCE_SEPARATOR, sentences)
 }
 
 module.exports = {

@@ -2,14 +2,15 @@ const taskService = require('../services/taskService')
 const responseService = require('../services/responseService')
 
 const DEFAULT_NUMBER_OF_TASKS = 3
-
 const NUMBER_OF_TASKS_MUST_BE_POSITIVE_ERROR = 'The number of tasks must be a positive integer'
 
 /**
  * @class TaskController
- * @extends AbstractController
  */
 class TaskController {
+  constructor(service) {
+    this.taskService = service
+  }
   /**
    * Find all the pending tasks and select specific attributes
    *
@@ -25,7 +26,7 @@ class TaskController {
 
     try {
       const numberOfTasks = this._getNumberOfTasks(params.numberOfTasks)
-      const tasks = await taskService.find(
+      const tasks = await this.taskService.find(
         {
           isDone: false
         },
@@ -58,7 +59,7 @@ class TaskController {
 
     try {
       const numberOfTasks = this._getNumberOfTasks(params.numberOfTasks)
-      const tasks = await taskService.generateTasks(numberOfTasks)
+      const tasks = await this.taskService.generateTasks(numberOfTasks)
       responseService.respondOk(res, { result: tasks })
     } catch (error) {
       console.error(error.message)
@@ -68,7 +69,6 @@ class TaskController {
 
   /**
    * Mark the task as done
-   *
    *
    * @async
    * @param {Object} req - Request object
@@ -80,7 +80,7 @@ class TaskController {
     const taskId = params._id
 
     try {
-      const result = taskService.markAsDone(taskId)
+      const result = this.taskService.markAsDone(taskId)
       responseService.respondOk(res, { result })
     } catch (error) {
       console.error(error.message)
@@ -90,7 +90,6 @@ class TaskController {
 
   /**
    * Mark the task as done
-   *
    *
    * @async
    * @param {Object} req - Request object
@@ -102,7 +101,7 @@ class TaskController {
     const taskId = params._id
 
     try {
-      const result = await taskService.enhancedMarkAsDone(taskId)
+      const result = await this.taskService.enhancedMarkAsDone(taskId)
       responseService.respondOk(res, { result })
     } catch (error) {
       console.error(error.message)
@@ -112,7 +111,6 @@ class TaskController {
 
   /**
    * Create a new task
-   *
    *
    * @async
    * @param {Object} req - Request object - must include req.body.title
@@ -124,7 +122,7 @@ class TaskController {
     const taskTitle = params.title
 
     try {
-      const result = await taskService.create(taskTitle)
+      const result = await this.taskService.create(taskTitle)
       responseService.respondOk(res, { result })
     } catch (error) {
       console.error(error.message)
@@ -155,4 +153,4 @@ class TaskController {
   }
 }
 
-module.exports = new TaskController()
+module.exports = new TaskController(taskService)
