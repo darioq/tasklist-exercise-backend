@@ -35,10 +35,10 @@ class TaskService {
    */
   async find (filter = {}, select = null, numberOfTasks = null) {
     return this.entityClass
-        .find(filter)
-        .select(select)
-        .limit(numberOfTasks)
-        .exec()
+      .find(filter)
+      .select(select)
+      .limit(numberOfTasks)
+      .exec()
   }
 
   /**
@@ -50,8 +50,8 @@ class TaskService {
    */
   async update (_id, updateData) {
     return this.entityClass.updateOne(
-        { _id },
-        { $set: updateData }
+      { _id },
+      { $set: updateData }
     )
   }
 
@@ -61,7 +61,7 @@ class TaskService {
    * @async
    * @returns {Promise<Boolean>} - True if it is empty
    */
-  async isEmpty() {
+  async isEmpty () {
     const count = await this.entityClass.countDocuments()
     return count === 0
   }
@@ -80,7 +80,7 @@ class TaskService {
     const result = []
 
     for (const taskTitle of taskTitles) {
-      result.push({_id: generateUUID(), title: taskTitle.trim(), isDone: false})
+      result.push({ _id: generateUUID(), title: taskTitle.trim(), isDone: false })
     }
 
     return result

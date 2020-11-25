@@ -1,13 +1,20 @@
-const router = require('express-promise-router')()
+const express = require('express')
+const router = express.Router()
+const { errorHandling, respondOk } = require('../utils/responseHandler')
 const taskController = require('../controllers/taskController')
 
-router.get('/tasks/:numberOfTasks?', (req, res, next) => {
-    return taskController.generateTasks(req, res)
-})
+router.get('/tasks/:numberOfTasks?',
+  errorHandling(async (req, res) => {
+    const responseData = await taskController.generateTasks(req)
+    return respondOk(res, responseData)
+  })
+)
 
-router.put('/tasks', (req, res, next) => {
-    return taskController.markAsDone(req, res)
-})
-
+router.put('/tasks',
+  errorHandling(async (req, res) => {
+    const responseData = await taskController.markAsDone(req)
+    return respondOk(res, responseData)
+  })
+)
 
 module.exports = router

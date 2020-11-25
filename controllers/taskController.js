@@ -1,5 +1,4 @@
 const taskService = require('../services/taskService')
-const responseService = require('../services/responseService')
 
 const DEFAULT_NUMBER_OF_TASKS = 3
 const NUMBER_OF_TASKS_MUST_BE_POSITIVE_ERROR = 'The number of tasks must be a positive integer'
@@ -8,9 +7,10 @@ const NUMBER_OF_TASKS_MUST_BE_POSITIVE_ERROR = 'The number of tasks must be a po
  * @class TaskController
  */
 class TaskController {
-  constructor(service) {
+  constructor (service) {
     this.taskService = service
   }
+
   /**
    * Find all the pending tasks and select specific attributes
    *
@@ -18,30 +18,24 @@ class TaskController {
    *
    * @async
    * @param {Object} req - Request object
-   * @param {object} res - Response object
    * @return {Promise} List of pending tasks
    */
-  async findAllPending (req, res) {
+  async findAllPending (req) {
     const params = req.params
 
-    try {
-      const numberOfTasks = this._getNumberOfTasks(params.numberOfTasks)
-      const tasks = await this.taskService.find(
-        {
-          isDone: false
-        },
-        {
-          _id: true,
-          title: true,
-          isDone: true
-        },
-        numberOfTasks)
+    const numberOfTasks = this._getNumberOfTasks(params.numberOfTasks)
+    const tasks = await this.taskService.find(
+      {
+        isDone: false
+      },
+      {
+        _id: true,
+        title: true,
+        isDone: true
+      },
+      numberOfTasks)
 
-      responseService.respondOk(res, { result: tasks })
-    } catch (error) {
-      console.error(error.message)
-      responseService.respondError(res, { error: error.message })
-    }
+    return { result: tasks }
   }
 
   /**
@@ -51,20 +45,15 @@ class TaskController {
    *
    * @async
    * @param {Object} req - Request object
-   * @param {object} res - Response object
    * @return {Promise} List of tasks
    */
-  async generateTasks (req, res) {
+  async generateTasks (req) {
     const params = req.params
 
-    try {
-      const numberOfTasks = this._getNumberOfTasks(params.numberOfTasks)
-      const tasks = await this.taskService.generateTasks(numberOfTasks)
-      responseService.respondOk(res, { result: tasks })
-    } catch (error) {
-      console.error(error.message)
-      responseService.respondError(res, { error: error.message })
-    }
+    const numberOfTasks = this._getNumberOfTasks(params.numberOfTasks)
+    const tasks = await this.taskService.generateTasks(numberOfTasks)
+
+    return { result: tasks }
   }
 
   /**
@@ -79,13 +68,9 @@ class TaskController {
     const params = req.body
     const taskId = params._id
 
-    try {
-      const result = this.taskService.markAsDone(taskId)
-      responseService.respondOk(res, { result })
-    } catch (error) {
-      console.error(error.message)
-      responseService.respondError(res, { error: error.message })
-    }
+    const result = this.taskService.markAsDone(taskId)
+
+    return { result }
   }
 
   /**
@@ -93,20 +78,15 @@ class TaskController {
    *
    * @async
    * @param {Object} req - Request object
-   * @param {object} res - Response object
    * @return {Promise} - boolean true if the task was marked as done
    */
-  async enhancedMarkAsDone (req, res) {
+  async enhancedMarkAsDone (req) {
     const params = req.body
     const taskId = params._id
 
-    try {
-      const result = await this.taskService.enhancedMarkAsDone(taskId)
-      responseService.respondOk(res, { result })
-    } catch (error) {
-      console.error(error.message)
-      responseService.respondError(res, { error: error.message })
-    }
+    const result = await this.taskService.enhancedMarkAsDone(taskId)
+
+    return { result }
   }
 
   /**
@@ -114,20 +94,15 @@ class TaskController {
    *
    * @async
    * @param {Object} req - Request object - must include req.body.title
-   * @param {object} res - Response object
    * @return {Promise} - boolean true if the task was marked as done
    */
-  async create (req, res) {
+  async create (req) {
     const params = req.body
     const taskTitle = params.title
 
-    try {
-      const result = await this.taskService.create(taskTitle)
-      responseService.respondOk(res, { result })
-    } catch (error) {
-      console.error(error.message)
-      responseService.respondError(res, { error: error.message })
-    }
+    const result = await this.taskService.create(taskTitle)
+
+    return { result }
   }
 
   /**

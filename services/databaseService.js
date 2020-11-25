@@ -4,10 +4,11 @@ const mongoose = require('mongoose')
  * @class Database
  */
 class Database {
-  constructor () {
-    mongoose.set('useFindAndModify', false)
-    mongoose.set('useCreateIndex', true)
-    mongoose.set('useUnifiedTopology', true)
+  constructor (mongoose) {
+    this.mongoose = mongoose
+    this.mongoose.set('useFindAndModify', false)
+    this.mongoose.set('useCreateIndex', true)
+    this.mongoose.set('useUnifiedTopology', true)
   }
 
   /**
@@ -16,7 +17,7 @@ class Database {
    */
   async connect () {
     try {
-      await mongoose.connect(
+      await this.mongoose.connect(
         `mongodb+srv://${process.env.TASKLIST_DATABASE_URL}/${process.env.TASKLIST_DATABASE_NAME}${process.env.TASKLIST_DATABASE_PARAMETERS}`,
         {
           useNewUrlParser: true
@@ -29,4 +30,4 @@ class Database {
   }
 }
 
-module.exports = new Database()
+module.exports = new Database(mongoose)
