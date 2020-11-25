@@ -18,7 +18,7 @@ async function _createTasks () {
     const data = require('../json/initializeData/tasks')
 
     for (const taskData of data.items) {
-      const task = await taskService.create(taskData.title)
+      const task = await taskService.create(taskData)
       console.log(`Task created: ${task.title}`)
     }
   }
